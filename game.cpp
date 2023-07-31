@@ -1,6 +1,5 @@
 #include "game.h"
 #include "bullet.h"
-#include <QDebug>
 
 Game::Game(QGraphicsView* parent)
     : QGraphicsView(parent)
@@ -17,6 +16,7 @@ Game::Game(QGraphicsView* parent)
 
     //Add Tower
     m_Tower = new Tower();
+    m_Tower->setPos(300, 300);
     m_Scene->addItem(m_Tower);
 
     //disable scrollbar
@@ -29,7 +29,6 @@ Game::Game(QGraphicsView* parent)
 void Game::mousePressEvent(QMouseEvent *event)
 {
     //create bullet
-    qDebug()<< "mouse pressed";
     Bullet* bullet = new Bullet();
     bullet->setRotation(40);
     bullet->setPos(event->pos());

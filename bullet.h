@@ -8,7 +8,7 @@ class Bullet : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Bullet(QGraphicsPixmapItem *parent = nullptr);
+    Bullet(QGraphicsItem *parent = nullptr);
 
 public slots:
     void move();

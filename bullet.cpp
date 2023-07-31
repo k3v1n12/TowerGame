@@ -2,7 +2,7 @@
 #include <QTimer>
 #include <QtMath>
 
-Bullet::Bullet(QGraphicsPixmapItem *parent)
+Bullet::Bullet(QGraphicsItem *parent)
     :QGraphicsPixmapItem{parent}
     ,QObject()
 {

@@ -28,6 +28,7 @@ Tower::Tower(QGraphicsItem* parent )
 
     //create polygon display area
     m_attackArea = new QGraphicsPolygonItem(polygon, this);
+    m_attackArea->setPen(QPen(Qt::DotLine));
 
     //map polygon to tower
     QPointF polyCenter(1.5, 1.5);

@@ -9,7 +9,7 @@ Enemy::Enemy(QGraphicsItem *parent)
     setPixmap(QPixmap(":/images/images/enemy.png").scaled(QSize(40, 40)));
 
     //set destination points
-    m_DestList << QPointF(200,200) << QPointF(400, 400);
+    m_DestList << QPointF(200,200) << QPointF(400, 200);
     m_PointIndex = 0;
     rotateToDestination(m_DestList[0]);
 
@@ -21,7 +21,7 @@ Enemy::Enemy(QGraphicsItem *parent)
 
 void Enemy::rotateToDestination(QPointF point)
 {
-    QLineF ln(m_EnemyPos, point);
+    QLineF ln(pos(), point);
     int angle = -1 * ln.angle();
     setRotation(angle);
 }
@@ -35,7 +35,7 @@ void Enemy::moveDestination()
     double theta = rotation();
 
     // change movement if distance is less
-    QLineF ln(m_EnemyPos, m_DestList[m_PointIndex]);
+    QLineF ln(pos(), m_DestList[m_PointIndex]);
     if(ln.length() < 5) {
         m_PointIndex++;
         if(m_PointIndex >= m_DestList.size()) {
@@ -49,6 +49,6 @@ void Enemy::moveDestination()
     double dy = qSin(qDegreesToRadians(theta)) * STEP_SIZE;
     double dx = qCos(qDegreesToRadians(theta)) * STEP_SIZE;
 
-    m_EnemyPos = QPointF(x() + dx, y() + dy);
-    setPos(m_EnemyPos);
+    setPos(QPointF(x() + dx, y() + dy));
+
 }

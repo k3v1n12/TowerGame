@@ -16,7 +16,6 @@ public slots:
 
 private:
     QList<QPointF>m_DestList;
-    QPointF m_EnemyPos;
     int m_PointIndex;
 
 };

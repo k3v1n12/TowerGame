@@ -4,6 +4,7 @@
 #include<QGraphicsView>
 #include<QMouseEvent>
 #include "tower.h"
+#include "enemy.h"
 
 class Game: public QGraphicsView
 {
@@ -14,6 +15,7 @@ public:
 
     QGraphicsScene* m_Scene;
     Tower* m_Tower;
+    Enemy* m_Enemy;
 };
 
 #endif // GAME_H

@@ -19,6 +19,10 @@ Game::Game(QGraphicsView* parent)
     m_Tower->setPos(300, 300);
     m_Scene->addItem(m_Tower);
 
+    // Add Enemy
+    m_Enemy = new Enemy();
+    m_Scene->addItem(m_Enemy);
+
     //disable scrollbar
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);

@@ -9,13 +9,16 @@ class Tower : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     Tower(QGraphicsItem* parent = nullptr);
+    double distanceToTower(QPointF point);
+    void attackTarget();
 
 public slots:
-    void attackTarget();
+    void acquireTarget();
 
 private:
     QGraphicsPolygonItem* m_attackArea;
     QPointF m_TargetCenter;
+    bool m_TargetAcquired;
 };
 
 #endif // TOWER_H

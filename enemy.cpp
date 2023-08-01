@@ -28,17 +28,18 @@ void Enemy::rotateToDestination(QPointF point)
 
 void Enemy::moveDestination()
 {
+    if(m_PointIndex >= m_DestList.size()) {
+        return;
+    }
     int STEP_SIZE = 10;
     double theta = rotation();
 
     // change movement if distance is less
     QLineF ln(m_EnemyPos, m_DestList[m_PointIndex]);
     if(ln.length() < 5) {
-        if(m_PointIndex < m_DestList.length() - 1) {
-            m_PointIndex++;
-        }
-        else {
-            m_PointIndex = 0;
+        m_PointIndex++;
+        if(m_PointIndex >= m_DestList.size()) {
+            return;
         }
 
         rotateToDestination(m_DestList[m_PointIndex]);

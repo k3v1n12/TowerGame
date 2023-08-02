@@ -1,15 +1,20 @@
 #include "enemy.h"
 #include <QTimer>
+#include "bullet.h"
+#include "game.h"
 
-Enemy::Enemy(QGraphicsItem *parent)
+extern Game* game;
+
+Enemy::Enemy(QList<QPointF>pointsToFollow, QGraphicsItem *parent)
     :QObject()
     ,QGraphicsPixmapItem{parent}
+    ,m_Health(5)
 {
     //set enemy image
     setPixmap(QPixmap(":/images/images/enemy.png").scaled(QSize(40, 40)));
 
     //set destination points
-    m_DestList << QPointF(200,200) << QPointF(400, 200);
+    m_DestList = pointsToFollow;
     m_PointIndex = 0;
     rotateToDestination(m_DestList[0]);
 
@@ -28,6 +33,21 @@ void Enemy::rotateToDestination(QPointF point)
 
 void Enemy::moveDestination()
 {
+    QList<QGraphicsItem*> collide = collidingItems();
+    foreach(auto item, collide)
+    {
+        if(dynamic_cast<Bullet*>(item))
+        {
+            m_Health--;
+        }
+        if(m_Health == 0)
+        {
+            game->m_Scene->removeItem(this);
+            delete this;
+            return;
+        }
+    }
+
     if(m_PointIndex >= m_DestList.size()) {
         return;
     }
@@ -43,6 +63,7 @@ void Enemy::moveDestination()
         }
 
         rotateToDestination(m_DestList[m_PointIndex]);
+        theta = rotation();
     }
 
 

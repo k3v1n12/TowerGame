@@ -4,6 +4,8 @@ Game::Game(QGraphicsView* parent)
     : QGraphicsView(parent)
     , m_Tower(nullptr)
     , m_Cursor(nullptr)
+    ,m_SpawnedEnemy(0)
+    ,m_MaxEnemy(0)
 {
     //mouse tracking
     setMouseTracking(true);
@@ -15,9 +17,13 @@ Game::Game(QGraphicsView* parent)
     setScene(m_Scene);
     setFixedSize(800, 600);
 
+    //Create road
+    pointsToFollow << QPointF(800, 0) << QPointF(450, 450) << QPointF(0, 600);
+    createRoad();
+
     // Add Enemy
-    m_Enemy = new Enemy();
-    m_Scene->addItem(m_Enemy);
+    m_Timer = new QTimer();
+    createEnemy(5);
 
     //Add Tower Icons
     m_BrownBuildTower = new BuildTower(":images/images/brownTowerIcon");
@@ -104,4 +110,40 @@ void Game::createTowerOnClick(QPointF pos)
     m_Tower = nullptr;
     deleteCursor();
     m_Cursor = nullptr;
+}
+
+void Game::createEnemy(int numberofEnemies)
+{
+    m_SpawnedEnemy = 0;
+    m_MaxEnemy = numberofEnemies;
+    connect(m_Timer, SIGNAL(timeout()), this, SLOT(spawnEnemy()));
+    m_Timer->start(1000);
+}
+
+void Game::createRoad()
+{
+    int n = pointsToFollow.size() - 1;
+    for(auto i = 0; i < n; i++) {
+        QLineF ln(pointsToFollow[i], pointsToFollow[i + 1]);
+        QPen pen;
+        pen.setWidth(15);
+        pen.setColor(Qt::darkGray);
+        QGraphicsLineItem* line = new QGraphicsLineItem();
+        line->setLine(ln);
+        line->setPen(pen);
+        m_Scene->addItem(line);
+    }
+}
+
+void Game::spawnEnemy()
+{
+    Enemy* enemy = new Enemy(pointsToFollow);
+    enemy->setPos(pointsToFollow[0]);
+    m_Scene->addItem(enemy);
+    m_SpawnedEnemy++;
+
+    if(m_SpawnedEnemy >= m_MaxEnemy)
+    {
+        disconnect(m_Timer, SIGNAL(timeout()), this, SLOT(spawnEnemy()));
+    }
 }

@@ -93,11 +93,8 @@ void Tower::acquireTarget()
 {
     QList<QGraphicsItem*>collidingItem = m_attackArea->collidingItems();
 
-    if(collidingItem.size() == 1)
-    {
-        m_TargetAcquired = false;
-    }
 
+    m_TargetAcquired = false;
     double closestDistance = 300;
     QPointF closestPoint(0,0);
     foreach(auto item, collidingItem)

@@ -8,7 +8,7 @@ class Enemy : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    explicit Enemy(QGraphicsItem *parent = nullptr);
+    explicit Enemy(QList<QPointF>pointsToFollow, QGraphicsItem *parent = nullptr);
     void rotateToDestination(QPointF point);
 
 public slots:
@@ -17,6 +17,7 @@ public slots:
 private:
     QList<QPointF>m_DestList;
     int m_PointIndex;
+    int m_Health;
 
 };
 

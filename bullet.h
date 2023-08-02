@@ -3,12 +3,13 @@
 
 #include <QObject>
 #include <QGraphicsPixmapItem>
+#include "Util.h"
 
 class Bullet : public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
-    Bullet(QGraphicsItem *parent = nullptr);
+    Bullet(TowerType type, QGraphicsItem *parent = nullptr);
 
 public slots:
     void move();

@@ -18,14 +18,16 @@ public:
 
     void setCursor(QString path);
     void deleteCursor();
+    void createTowerOnClick(QPointF pos);
 
     QGraphicsScene* m_Scene;
-    Tower* m_Tower;
     Enemy* m_Enemy;
-    BuildTower* m_BuildTower;
+    BuildTower* m_BrownBuildTower;
+    BuildTower* m_GreenBuildTower;
+    BuildTower* m_BlueBuildTower;
 
 private:
-    Tower* m_Build;
+    Tower* m_Tower;
     QGraphicsPixmapItem* m_Cursor;
 };
 

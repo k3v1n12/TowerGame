@@ -7,7 +7,7 @@
 class BuildTower : public QGraphicsPixmapItem
 {
 public:
-    BuildTower(QGraphicsItem* parent = nullptr);
+    BuildTower(QString iconPath, QGraphicsItem* parent = nullptr);
     void mousePressEvent(QGraphicsSceneMouseEvent* event);
 
     bool m_IconClicked;

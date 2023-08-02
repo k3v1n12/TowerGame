@@ -7,12 +7,13 @@
 
 extern Game* game;
 
-Tower::Tower(QGraphicsItem* parent )
+Tower::Tower(TowerType type, QString imagePath, QGraphicsItem* parent )
     :QObject()
     ,QGraphicsPixmapItem(parent)
+    ,m_Type(type)
 {
     //set the graphics
-    setPixmap(QPixmap(":/images/images/tower.png").scaled(QSize(100, 100)));
+    setPixmap(QPixmap(imagePath).scaled(QSize(100, 100)));
 
     //Get the point vector
     QVector<QPointF> points;
@@ -57,16 +58,35 @@ double Tower::distanceToTower(QPointF point)
 void Tower::attackTarget()
 {
     //Create bullet to attack target
-    Bullet* bullet = new Bullet();
     QPointF towerCenter(x() + 50, y() + 50);
-    bullet->setPos(towerCenter);
-
-    //Finding angle of bullet
     QLineF ln(pos(), m_TargetCenter);
     int angle = -1  * ln.angle();
+    if(m_Type == brown)
+    {
+        createBullet(brown, towerCenter,angle);
+    }
+    else if(m_Type == blue)
+    {
+        createBullet(blue, towerCenter,angle);
+    }
+
+    else if(m_Type == green)
+    {
+        createBullet(green, towerCenter,angle);
+        createBullet(green, towerCenter,angle - 10);
+        createBullet(green, towerCenter,angle + 10);
+    }
+
+
+}
+
+void Tower::createBullet(TowerType type, QPointF pos, int angle)
+{
+    Bullet* bullet = new Bullet(type);
+    bullet->setPos(pos);
+    //Finding angle of bullet
     bullet->setRotation(angle);
     game->m_Scene->addItem(bullet);
-
 }
 
 void Tower::acquireTarget()

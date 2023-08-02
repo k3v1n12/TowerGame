@@ -2,11 +2,22 @@
 #include <QTimer>
 #include <QtMath>
 
-Bullet::Bullet(QGraphicsItem *parent)
+Bullet::Bullet(TowerType type, QGraphicsItem *parent)
     :QGraphicsPixmapItem{parent}
     ,QObject()
 {
-    setPixmap(QPixmap(":/images/images/arrow.png").scaled(QSize(40, 20)));
+    if(type == brown)
+    {
+        setPixmap(QPixmap(":/images/images/arrow.png").scaled(QSize(40, 20)));
+    }
+    else if(type == green)
+    {
+        setPixmap(QPixmap(":/images/images/leaf.png").scaled(QSize(40, 20)));
+    }
+    else if(type == blue)
+    {
+        setPixmap(QPixmap(":/images/images/fire.png").scaled(QSize(40, 20)));
+    }
     QTimer* timer = new QTimer;
     connect(timer, SIGNAL(timeout()), this, SLOT(move()));
     timer->start(50);
